@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Poesía - Parte 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Noto+Serif+JP:wght@500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff4d6d;
+            --soft-white: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%; width: 100%;
+            display: flex; justify-content: center; align-items: center;
+            background: #000; font-family: 'Playfair Display', serif;
+            overflow: hidden;
+        }
+
+        #canvas-stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; background: radial-gradient(circle at center, #1a050a 0%, #000 100%);
+        }
+
+        .poem-card {
+            position: relative;
+            z-index: 10;
+            width: 85%;
+            max-width: 600px;
+            background: rgba(10, 0, 5, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 77, 109, 0.4);
+            border-radius: 40px;
+            padding: 50px 35px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+        }
+
+        .title {
+            color: var(--pink);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px var(--pink);
+        }
+
+        .poem-text {
+            color: var(--soft-white);
+            font-size: 1.3rem;
+            line-height: 1.8;
+            min-height: 350px;
+            transition: opacity 1.5s ease-in-out;
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .spanish-mode {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+        }
+
+        .signature {
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 77, 109, 0.3);
+            padding-top: 20px;
+            opacity: 0;
+            animation: fadeIn 2s forwards 8s; 
+        }
+
+        /* BOTÓN QUE LLEVA A PORTADA-4 */
+        .btn-love {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 35px;
+            background: transparent;
+            color: white;
+            border: 2px solid var(--pink);
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 10px rgba(255, 77, 109, 0.2);
+        }
+
+        .btn-love:hover {
+            background: var(--pink);
+            box-shadow: 0 0 25px var(--pink);
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .petal {
+            position: absolute;
+            background: linear-gradient(135deg, #ff4d6d 0%, #800e26 100%);
+            border-radius: 150% 0 150% 0;
+            pointer-events: none;
+            z-index: 5;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-stars"></canvas>
+
+    <div class="poem-card">
+        <div class="title" id="main-title">永遠に</div>
+        
+        <div class="poem-text" id="poem-content">
+            宇宙がどれほどあなたを愛しているかを知っていたら、<br>
+            それはそのような感情の前では小さすぎるでしょう。<br>
+            あなたは決して終わらない詩です、<br>
+            私の絶え間ない暗闇の中で踊る光。<br><br>
+            
+            心は止まるから、心であなたを愛しているわけではありません。<br>
+            魂は永遠だから, 魂であなたを愛しています。<br>
+            そして運命が私に与えてくれるすべての人生において、<br>
+            千の星の中からまたあなたを探します.
+        </div>
+        
+        <div class="signature">
+            <a href="portada-4.html" class="btn-love">Mi amor por ti es infinito</a>
+        </div>
+    </div>
+
+    <script>
+        const poemSpanish = `Si el universo supiera cuánto te amo,<br>
+            se quedaría pequeño ante tal sentimiento.<br>
+            Eres el verso que nunca termina,<br>
+            la luz que baila en mi oscuridad constante.<br><br>
+            
+            No te amo con el corazón, porque se detiene.<br>
+            Te amo con el alma, porque es eterna,<br>
+            y en cada vida que el destino me otorgue,<br>
+            te buscaré de nuevo, entre mil estrellas pero nunca te dejaré de amar.`;
+
+        // Traducción automática a los 5 segundos
+        setTimeout(() => {
+            const textElement = document.getElementById('poem-content');
+            const titleElement = document.getElementById('main-title');
+            textElement.style.opacity = '0';
+            setTimeout(() => {
+                titleElement.innerHTML = "Eternamente";
+                textElement.innerHTML = poemSpanish;
+                textElement.classList.add('spanish-mode');
+                textElement.style.opacity = '1';
+            }, 1500);
+        }, 5000);
+
+        // Redirección automática a los 20 segundos por si no hace clic
+        setTimeout(() => {
+            window.location.href = "portada-4.html";
+        }, 20000);
+
+        // --- SISTEMA DE ESTRELLAS Y PÉTALOS ---
+        const canvas = document.getElementById('canvas-stars');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function initStars() {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            stars = [];
+            for(let j=0; j<180; j++) {
+                stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, size: Math.random()*2, opacity: Math.random(), speed: Math.random()*0.2});
+            }
+        }
+        function drawStars() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            stars.forEach(s => {
+                ctx.fillStyle = `rgba(255,255,255,${s.opacity})`;
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI*2); ctx.fill();
+                s.y -= s.speed; if(s.y < 0) s.y = canvas.height;
+            });
+            requestAnimationFrame(drawStars);
+        }
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            const size = Math.random() * 12 + 10 + 'px';
+            petal.style.width = size; petal.style.height = size;
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = Math.random() * 4 + 6 + 's';
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 10000);
+        }
+        window.onload = () => { initStars(); drawStars(); setInterval(createPetal, 700); };
+    </script>
+</body>
+</html>
